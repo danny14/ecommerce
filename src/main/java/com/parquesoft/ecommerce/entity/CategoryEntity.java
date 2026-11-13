@@ -8,16 +8,19 @@ public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(length = 100,  nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column(length = 255)
     private String description;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
+
+    public CategoryEntity() {
+    }
 
     public CategoryEntity(String name, String description, boolean isActive) {
         this.name = name;
@@ -25,15 +28,11 @@ public class CategoryEntity {
         this.isActive = isActive;
     }
 
-    public CategoryEntity() {
-
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

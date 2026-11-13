@@ -1,23 +1,23 @@
 package com.parquesoft.ecommerce.entity;
 
-
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "products")
 public class ProductEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(length = 100,  nullable = false, unique = true)
+    @Column(length = 150, nullable = false)
     private String name;
+
+    @Column(length = 50, nullable = false, unique = true)
+    private String sku;
 
     @Column(nullable = false)
     private double price;
-
-    @Column(nullable = false,unique = true,length = 50)
-    private String sku;
 
     @Column(nullable = false)
     private Integer stock;
@@ -26,25 +26,26 @@ public class ProductEntity {
     private boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", nullable = false)
-    private CategoryEntity category; //
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
 
     public ProductEntity() {
     }
 
-    public ProductEntity(String name, double price, String sku, Integer stock) {
+    public ProductEntity(String name, String sku, double price, Integer stock, CategoryEntity category) {
         this.name = name;
-        this.price = price;
         this.sku = sku;
+        this.price = price;
         this.stock = stock;
+        this.category = category;
         this.isActive = true;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -88,5 +89,11 @@ public class ProductEntity {
         isActive = active;
     }
 
+    public CategoryEntity getCategory() {
+        return category;
+    }
 
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
 }
